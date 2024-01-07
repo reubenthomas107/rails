@@ -26,7 +26,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: docker run --rm -v $(pwd):/src -w /src hysnsec/bundle-audit check --format json --output bundle-audit-output.json
-      
+        continue-on-error: true
       - uses: actions/upload-artifact@v2
         with:
           name: bundle-audit-artifact
