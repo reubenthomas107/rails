@@ -21,6 +21,19 @@ jobs:
 
       - run: echo "This is a test step"
 
+  bundler-audit-oast:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - run: |
+          docker run --rm -v $(pwd):/src -w /src hysnsec/bundle-audit check --format json --output bundle-audit-output.json
+      
+      - uses: actions/upload-artifact@v2
+        with:
+          name: bundle-audit-artifact
+          path: bundle-audit-output.json
+
+
   integration:
     runs-on: ubuntu-20.04
     needs: test
